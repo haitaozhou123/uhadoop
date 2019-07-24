@@ -12,7 +12,7 @@ Job包含了在Job外部设置执行周期和频率的语义。类似于在工�
 
 如果在集群安装了Hue，也可以通过页面操作配置工作流，具体操作步骤[点此查看](https://docs.ucloud.cn/analysis/uhadoop/developer/huedev#配置工作流)。以下介绍通过后台配置工作流的方法：
 
-## 1\. 运行Coordinator Job
+## 1. 运行Coordinator Job
 
 先看一下官方发行包自带的一个简单例子
 oozie/examples/src/main/apps/cron。它能够实现定时调度一个工作流Job运行，这个例子中给出的一个空的工作流Job，也是为了演示能够使用Coordinator系统给调度起来。
@@ -21,7 +21,7 @@ oozie/examples/src/main/apps/cron。它能够实现定时调度一个工作流Jo
 
 这个例子有3个配置文件。修改后分别如下所示：
 
-\- job.properties配置
+- job.properties配置
 
 ``` ini
 nameNode=hdfs://uhadoop-XXXXXX-master1:8020
@@ -37,7 +37,7 @@ workflowAppUri=${nameNode}/user/${user.name}/${examplesRoot}/apps/cron
 
 修改了Hadoop集群的配置，以及调度起止时间范围。
 
-\- wordflow.xml
+- wordflow.xml
 
 ``` xml
 <workflow-app xmlns="uri:oozie:workflow:0.5" name="one-op-wf">
@@ -53,7 +53,7 @@ workflowAppUri=${nameNode}/user/${user.name}/${examplesRoot}/apps/cron
 
 这是一个空Job，没做任何修改。
 
-\- corrdinator.xml配置
+- corrdinator.xml配置
 
 ``` xml
 <coordinator-app name="cron-coord" frequency="${coord:minutes(2)}" start="${start}" end="${end}" timezone="UTC" xmlns="uri:oozie:coordinator:0.2">
@@ -89,7 +89,7 @@ bin/oozie job -oozie http://uhadoop-XXXXXX-master2:11000/oozie -config /home/had
 
 运行上面命令，在控制台上会返回这个Job的ID，我们也可以通过Oozie的Web控制台来查看。
 
-## 2\. Coordinator Action
+## 2. Coordinator Action
 
 一个Coordinator Job会创建并执行Coordinator Action。通常一个Coordinator
 Action是一个工作流Job，这个工作流Job会生成一个dataset实例并处理这个数据集。当一个Coordinator
@@ -101,36 +101,22 @@ Action，它不像Oozie工作流Job只有OK和Error两个执行结果，一个Co
 动作的状态集合，如下所示：
 
 > WAITING
-
-\>
-
+>
 > READY
-
-\>
-
+>
 > SUBMITTED
-
-\>
-
+>
 > TIMEDOUT
-
-\>
-
+>
 > RUNNING
-
-\>
-
+>
 > KILLED
-
-\>
-
+>
 > SUCCEEDED
-
-\>
-
+>
 > FAILED
 
-## 3\. Coordinator Application
+## 3. Coordinator Application
 
 Coordinator
 Application当满足一定条件时，会触发Oozie工作流。其中，触发条件可以是一个时间频率、一个dataset实例是否可用，或者可能是外部的其他事件。
@@ -139,60 +125,36 @@ Job是在Oozie提供的Coordinator引擎上运行的，并且这个实例从指�
 Job具有以下几个状态：
 
 > PREP
-
-\>
-
+>
 > RUNNING
-
-\>
-
+>
 > RUNNINGWITHERROR
-
-\>
-
+>
 > PREPSUSPENDED
-
-\>
-
+>
 > SUSPENDED
-
-\>
-
+>
 > SUSPENDEDWITHERROR
-
-\>
-
+>
 > PREPPAUSED
-
-\>
-
+>
 > PAUSED
-
-\>
-
+>
 > PAUSEDWITHERROR
-
-\>
-
+>
 > SUCCEEDED
-
-\>
-
+>
 > DONEWITHERROR
-
-\>
-
+>
 > KILLED
-
-\>
-
+>
 > FAILED
 
 Coordinator Job的状态比一个基本的Oozie工作流Job的状态要复杂的多。因为Coordinator
 Job的基本执行单元可能是一个基本Oozie
 Job，而且外加了一些调度信息，必然要增加额外的状态来描述。
 
-## 4\. Coordinator Application定义
+## 4. Coordinator Application定义
 
 一个同步的Coordinator Appliction定义的语法格式，如下所示：
 
@@ -247,7 +209,7 @@ Job，而且外加了一些调度信息，必然要增加额外的状态来描�
 
 基于上述定义语法格式，我们分别说明对应元素的含义，如下所示：
 
-\- control元素
+- control元素
 
 | 元素名称        | 含义说明                                                                                                 |
 | ----------- | ---------------------------------------------------------------------------------------------------- |
@@ -256,7 +218,7 @@ Job，而且外加了一些调度信息，必然要增加额外的状态来描�
 | execution   | 配置多个Coordinator Job并发执行的策略：默认是FIFO。另外还有两种：LIFO（最新的先执行）、LAST\_ONLY（只执行最新的Coordinator Job，其它的全部丢弃）。    |
 | throttle    | 一个Coordinator Job初始化时，允许Coordinator动作处于WAITING状态的最大数量。                                               |
 
-\- dataset元素
+- dataset元素
 
 Coordinator
 Job中有一个Dataset的概念，它可以为实际计算提供计算的数据，主要是指HDFS上的数据目录或文件，能够配置数据集生成的频率（Frequency）、URI模板、时间等信息，下面看一下dataset的语法格式：
@@ -293,7 +255,7 @@ Job中有一个Dataset的概念，它可以为实际计算提供计算的数据�
 </datasets>
 ```
 
-\- input-events和output-events元素
+- input-events和output-events元素
 
 一个Coordinator
 Application的输入事件指定了要执行一个Coordinator动作必须满足的输入条件，在Oozie当前版本，只支持使用dataset实例。

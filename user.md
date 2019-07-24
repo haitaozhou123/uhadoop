@@ -13,11 +13,11 @@
 
 配置了的外网IP后，需要配置代理访问的方式才可以查看重定向后的url信息。在绑定外网的主机上面执行下面的操作：
 
-1.  安装nginx
+ 1. 安装nginx
 
 yum install nginx -y
 
-1.  修改配置
+ 2. 修改配置
 
 新建/etc/nginx/conf.d/proxy.conf 文件中添加如下配置
 
@@ -42,30 +42,28 @@ server {
 } 
 ```
 
-1.  启动nginx服务
+ 1. 启动nginx服务
 
 service nginx restart
 
-1.  启动域名服务
+ 2. 启动域名服务
 
 service dnsmasq restart ； 集群节点发生变化时，需要重新启动这个服务。
 
-1.  在访问的网页端配置代理
+ 3. 在访问的网页端配置代理
 
 以windows为例：在命令行下执行 set http\_proxy=<http://proxy_ip:port> proxy\_ip
 为上面启动nginx的ip，port为上面监听的端口8889.
 
-1.  配置hosts
+ 4. 配置hosts
 
 需要在本地的hosts中添加集群的/etc/hosts 文件中节点的host信息。
 
 ## hue中执行hive sql提示Fetching results ran into the following error(s): Couldn't find log associated with operation handle: OperationHandle
 
-1\.
-确认hive-site.xml里是否配置了hive.server2.logging.operation.log.location参数，如果配置了，检查是否hadoop用户有权限访问这个路径
+ 1. 确认hive-site.xml里是否配置了hive.server2.logging.operation.log.location参数，如果配置了，检查是否hadoop用户有权限访问这个路径
 
-2\.
-确认/tmp/hadoop/operation\_logs/这个目录是否存在，如果没有重启hiveserver2服务：master2$service
+ 2. 确认/tmp/hadoop/operation\_logs/这个目录是否存在，如果没有重启hiveserver2服务：master2$service
 hive-server2 restart
 
 ## Namenode一直GC
@@ -82,7 +80,9 @@ hive-server2 restart
 
 ### 任务日志
 
-1\. 使用hue查看 2. 使用web yarn 查看 3. 当日志文件过于庞大时，上面两个服务没有很好的支持，只能通过下载hdfs日志查看。
+ 1. 使用hue查看 
+ 2. 使用web yarn 查看 
+ 3. 当日志文件过于庞大时，上面两个服务没有很好的支持，只能通过下载hdfs日志查看。
 
 hdfs://Ucluster/var/log/hadoop-yarn/apps/\[submintuser\]/logs
 (submituser 是交用户的名)
@@ -118,7 +118,7 @@ hdfs://Ucluster/var/log/hadoop-yarn/apps/\[submintuser\]/logs
 
 Caused by: java.net.BindException: Cannot assign requested address
 
-1\. 原ResourceManager未关闭
+1. 原ResourceManager未关闭
 
 2.拷贝了另一台机器的的yarn-site.xml，导致两个master的yarn.resourcemanager.ha.id参数配置冲突，修改yarn.resourcemanager.ha.id为对应标识(rm1或者rm2)
 
@@ -367,7 +367,7 @@ hive /user/hive/warehouse
 
 ### Hive迁移
 
-1.  设置默认需要导出的hive数据库为defaultDatabase
+ 1. 设置默认需要导出的hive数据库为defaultDatabase
 
 
 
@@ -376,7 +376,7 @@ vi ~/.hiverc
 use defaultDatabase;
 ```
 
-1.  创建数据临时目录
+ 2. 创建数据临时目录
 
 
 
@@ -384,7 +384,7 @@ use defaultDatabase;
 hdfs dfs -mkdir /tmp/hive-export
 ```
 
-1.  生成导出数据脚本
+ 3. 生成导出数据脚本
 
 
 
@@ -392,7 +392,7 @@ hdfs dfs -mkdir /tmp/hive-export
 hive -e "show tables" | awk '{printf "export table %s to @</tmp/hive-export/%s@;>\n",$1,$1}' | sed <"s/@/'/g>" > export.sql
 ```
 
-1.  手工导出数据到HDFS
+ 4. 手工导出数据到HDFS
 
 
 
@@ -400,7 +400,7 @@ hive -e "show tables" | awk '{printf "export table %s to @</tmp/hive-export/%s@;
 hive -f export.sql
 ```
 
-1.  下载HDFS数据到本地并传送到目标集群的/tmp/hive-export目录
+ 1. 下载HDFS数据到本地并传送到目标集群的/tmp/hive-export目录
 
 
 
@@ -410,7 +410,7 @@ scp -r hive-export/ export.sql <root@targetDir>
 hdfs dfs -put hive-export/ /tmp/hive-export
 ```
 
-1.  构造导入语句
+ 2. 构造导入语句
 
 
 
@@ -420,7 +420,7 @@ sed -i 's/export table/import table/g' import.sql
 sed -i 's/ to / from /g' import.sql
 ```
 
-1.  导入数据
+ 3. 导入数据
 
 
 
@@ -437,7 +437,7 @@ hive -f import.sql
 
 设置主从备份，只拷贝新增数据
 
-1.  开启replication：主从集群hbase-site.xml添加（待确认是否默认就为true，如果默认true，可省略）
+ 1. 开启replication：主从集群hbase-site.xml添加（待确认是否默认就为true，如果默认true，可省略）
 
 
 
@@ -446,9 +446,9 @@ hive -f import.sql
         <value>true</value>
     </property>
 
-1.  new cluster和old cluster所有节点加上对方的hosts
-2.  new Cluster 手动建表和簇名
-3.  修改表定义，开启复制功能
+ 2. new cluster和old cluster所有节点加上对方的hosts
+ 3. new Cluster 手动建表和簇名
+ 4. 修改表定义，开启复制功能
 
 
 
@@ -456,7 +456,7 @@ hive -f import.sql
     alter 'your_table', {NAME => 'family_name', REPLICATION_SCOPE => '1'}
     enable 'your_table'
 
-1.  添加peer
+ 1. 添加peer
 
 
 
@@ -468,12 +468,12 @@ hive -f import.sql
 
 使用disable\_peer 'peer\_id'停止复制
 
-1.  迁移原HDFS的HBase数据
+ 2. 迁移原HDFS的HBase数据
 
 hbase org.apache.hadoop.hbase.mapreduce.CopyTable --peer.adr=
 zk1,zk2,zk3:2181:/hbase table\_name 逐个表拷贝。
 
-1.  恢复元数据与数据
+ 3. 恢复元数据与数据
 
 在新集群执行，hbase hbck， 如果发现数据有异常进行下面操作：
 
@@ -482,7 +482,7 @@ zk1,zk2,zk3:2181:/hbase table\_name 逐个表拷贝。
 
 ## 调整spark任务日志级别
 
-1.  修改提交任务机器的这个文件/home/hadoop/spark/conf/log4j.properties
+ 1. 修改提交任务机器的这个文件/home/hadoop/spark/conf/log4j.properties
 
 log4j.rootCategory=OFF, console
 
@@ -490,7 +490,7 @@ log4j.rootCategory=OFF, console
 
 OFF、FATAL、ERROR、WARN、INFO、DEBUG、TRACE、ALL
 
-1.  在程序中指定
+ 2. 在程序中指定
 
 
 
@@ -499,20 +499,20 @@ OFF、FATAL、ERROR、WARN、INFO、DEBUG、TRACE、ALL
 
 ## spark连接mysql问题
 
-1.java.lang.ClassNotFoundException: com.mysql.jdbc.Driver
+ 1. java.lang.ClassNotFoundException: com.mysql.jdbc.Driver
 
 原因，默认集群没有连接mysql的jar包。
 
-2.java.sql.SQLException: No suitable driver found for
+ 2. java.sql.SQLException: No suitable driver found for
 jdbc:mysql//localhost:3306/mysql
 
 连接的语法错误会报这个错误，仔细检查，连接的url是否存在问题。
 
-3.access denied for user….
+ 3. access denied for user….
 
 需要为每个nodemanager所在的机器(task/core节点)配置访问mysql的权限。
 
-4.旧的集群没有配置mysql的jar包，
+ 4. 旧的集群没有配置mysql的jar包，
 需要手动从http://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.0.8.tar.gz下载。
 
 测试命令：

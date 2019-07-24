@@ -6,7 +6,7 @@
 
 分别选择SAS的B2-large、B2-xlarge和SATA的D1-large、D1-xlarge以及普通虚拟机作为core节点，建立A-E共5个集群。Master节点统一采用C1-4xlarge。具体配置见表1.1。其中，由于E集群性能太差，只测试了HBase和磁盘读写性能。
 
-\- 表1.1 集群配置
+- 表1.1 集群配置
 
 | 集群名称 | Master节点配置 | Core节点配置        | Core节点数量 | 可用区 |
 | ---- | ---------- | --------------- | -------- | --- |
@@ -22,7 +22,7 @@
 
 使用BigDataBench的数据源，从10GB开始，每次增加10GB，直至200GB。生成数据源代码如下：
 
-\- yarn-wordcount数据源生成代码
+- yarn-wordcount数据源生成代码
 
 ```
 wget http://prof.ict.ac.cn/bdb_uploads/bdb_3_1/packages/BigDataBench_V3.2.1_Hadoop.tar.gz
@@ -34,7 +34,7 @@ sh genData_MicroBenchmarks.sh
 
 依次从数据源取数据，进行wordcount测试，并打印结果，代码如下：
 
-\- yarn-wordcount-run.sh
+- yarn-wordcount-run.sh
 
 ```
 #!/bin/bash
@@ -62,7 +62,7 @@ done
 
 对四个集群的测试结果如下：
 
-\- 表2.1 yarn集群wordcount测试结果
+- 表2.1 yarn集群wordcount测试结果
 
 |      | 耗时(s) |      |      |      | 处理速度(MB/s) |       |       |       |
 | ---- | ----- | ---- | ---- | ---- | ---------- | ----- | ----- | ----- |
@@ -88,23 +88,22 @@ done
 | 190G | 5712  | 2795 | 5723 | 2804 | 34.06      | 69.61 | 34.00 | 69.39 |
 | 200G | 6147  | 2938 | 6031 | 2953 | 33.32      | 69.71 | 33.96 | 69.35 |
 
-\- 图2.1 yarn集群wordcount处理耗时
+- 图2.1 yarn集群wordcount处理耗时
 
 ![](/images/testdata/perf-uhadoop1.png)
 
-\- 图2.2 yarn集群wordcount处理速度
+- 图2.2 yarn集群wordcount处理速度
 
 ![](/images/testdata/perf-uhadoop2.png)
 
 > BigDataBench介绍内容与下载链接：
-
-<http://prof.ict.ac.cn/BigDataBench/dowloads/>
+> <http://prof.ict.ac.cn/BigDataBench/dowloads/>
 
 ## 3.Yarn集群terasort测试
 
 使用hadoop自带的hadoop-example.jar的teragen生成200GB数据。从10GB开始，每次增加10GB数据作为测试数据源，测试terasort排序时间。生成数据和测试代码如下：
 
-\- terasort生成数据和测试代码
+- terasort生成数据和测试代码
 
 ```
 #!/bin/bash
@@ -128,7 +127,7 @@ done
 
 对4个集群的测试结果如下：
 
-\- 表3.1 yarn集群terasort测试结果
+- 表3.1 yarn集群terasort测试结果
 
 |      | 耗时(s) |      |      |      | 处理速度(MB/s) |       |       |       |
 | ---- | ----- | ---- | ---- | ---- | ---------- | ----- | ----- | ----- |
@@ -154,17 +153,16 @@ done
 | 190G | 4945  | 2826 | 5394 | 4001 | 39.34      | 68.85 | 36.07 | 48.63 |
 | 200G | 5306  | 3132 | 5778 | 4240 | 38.60      | 65.39 | 35.44 | 48.30 |
 
-\- 图3.1 yarn集群terasort处理耗时
+- 图3.1 yarn集群terasort处理耗时
 
 ![](/images/testdata/perf-uhadoop3.png)
 
-\- 图3.2 yarn集群terasort处理速度
+- 图3.2 yarn集群terasort处理速度
 
 ![](/images/testdata/perf-uhadoop4.png)
 
 > terasort算法简介参见：
-
-<http://dongxicheng.org/mapreduce/hadoop-terasort-analyse/>
+> <http://dongxicheng.org/mapreduce/hadoop-terasort-analyse/>
 
 ## 4.Hive测试
 
@@ -172,7 +170,7 @@ Hive测试使用了TPC-H(<http://www.tpc.org/tpch>)的数据源和测试sql进�
 
 数据源使用TPC-H提供的方法生成。每次生成8张数据表，总数据量从10GB开始，每次增加10GB直至100GB。生成数据和测试代码如下：
 
-\- tpch-hive数据生成和测试代码
+- tpch-hive数据生成和测试代码
 
 ```
 #!/bin/bash
@@ -199,7 +197,7 @@ done
 
 对4个集群的测试结果如下表
 
-\- 表4.1 hive测试结果
+- 表4.1 hive测试结果
 
 |      | 耗时(s) |       |       |       | 处理速度(MB/s) |      |      |      |
 | ---- | ----- | ----- | ----- | ----- | ---------- | ---- | ---- | ---- |
@@ -215,19 +213,19 @@ done
 | 90G  | 30190 | 15781 | 28262 | 16824 | 3.05       | 5.84 | 3.26 | 5.48 |
 | 100G | 32877 | 16979 | 32260 | 19277 | 3.11       | 6.03 | 3.17 | 5.31 |
 
-\- 图4.1 hive测试处理总耗时
+- 图4.1 hive测试处理总耗时
 
-![perf-uhadoop5.png](/images/testdata/perf-uhadoop5.png)
+![](/images/testdata/perf-uhadoop5.png)
 
-\- 图4.2 hive测试处理速度
+- 图4.2 hive测试处理速度
 
-![perf-uhadoop6.png](/images/testdata/perf-uhadoop6.png)
+![](/images/testdata/perf-uhadoop6.png)
 
 ## 5.Hbase读写性能测试
 
 Hbase读写性能测试使用hbase自带的工具进行。分别测试随机写、顺序写、随机读、顺序读的性能。所有测试均为对100W行数据的读写，结果取100次测试的平均值。测试代码如下：
 
-\- hbase读写性能测试代码
+- hbase读写性能测试代码
 
 ```
 #!/bin/bash
@@ -241,7 +239,7 @@ done
 
 对5个集群的测试结果如下：
 
-\- 表5.1 hbase读写性能测试结果
+- 表5.1 hbase读写性能测试结果
 
 | 处理速度(条/s) | B2      | B2-x     | D1      | D1-x     | vhost   |
 | --------- | ------- | -------- | ------- | -------- | ------- |
@@ -250,7 +248,7 @@ done
 | 顺序读       | 1928.34 | 2723.67  | 2260.79 | 2462.00  | 1660.79 |
 | 随机读       | 1795.51 | 2608.65  | 2205.75 | 2331.72  | 550.88  |
 
-\- 图5.1 hbase读写性能测试结果
+- 图5.1 hbase读写性能测试结果
 
 ![](/images/testdata/perf-uhadoop7.png)
 
@@ -258,7 +256,7 @@ done
 
 磁盘读写性能测试使用dd命令进行测试。单次读或写4k数据26214400次，共100G数据，结果取10次测试的平均值。测试代码如下：
 
-\- 磁盘读写性能测试代码
+- 磁盘读写性能测试代码
 
 ```
 #!/bin/bash
@@ -270,13 +268,13 @@ dd if=/data/test of=/dev/null bs=4k count=26214400
 
 对5个集群的测试结果如下:
 
-\- 表6.1 磁盘读写性能测试结果
+- 表6.1 磁盘读写性能测试结果
 
 | 速度(MB/s) | B2-large | B2-xlarge | D1-large | D1-xlarge | vhost  |
 | -------- | -------- | --------- | -------- | --------- | ------ |
 | 写        | 176.80   | 174.00    | 85.84    | 101.70    | 115.07 |
 | 读        | 177.30   | 171.20    | 150.50   | 170.90    | 91.81  |
 
-\- 图6.1 磁盘读写性能测试结果
+- 图6.1 磁盘读写性能测试结果
 
 ![](/images/testdata/perf-uhadoop8.png)

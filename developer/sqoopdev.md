@@ -11,7 +11,7 @@ Sqoop是可以将Hadoop和关系型数据库中的数据相互转移的工具，
  - 详细使用请参考[[http://sqoop.apache.org/docs/1.4.6/SqoopUserGuide.html|官方网页]]
 ```
 
-## 1\. 基础操作
+## 1. 基础操作
 
 ### 1.1 Sqoop的安装配置
 
@@ -21,7 +21,7 @@ UHadoop中Sqoop默认与Oozie一起安装，如果您创建集群时勾选了Ooz
 
 以在master1节点安装为例。
 
-\- 在master1节点上以root用户执行以下命令即可，默认安装到/home/hadoop/目录下
+- 在master1节点上以root用户执行以下命令即可，默认安装到/home/hadoop/目录下
 
 ```
 sh /home/hadoop/.versions/umrAgent/script/install.sh sqoop 1.4.5 cdh5.4.9
@@ -41,7 +41,7 @@ sh /home/hadoop/.versions/umrAgent/script/install.sh sqoop 1.4.5 cdh5.4.9
   tar -zvxf sqoop-1.4.5-cdh5.4.9.tar.gz -C /home/hadoop/.versions/
 ```
 
-1.  hadoop用户下建立软链
+2.  hadoop用户下建立软链
 
 
 
@@ -49,7 +49,7 @@ sh /home/hadoop/.versions/umrAgent/script/install.sh sqoop 1.4.5 cdh5.4.9
   ln -s /home/hadoop/.versions/sqoop-1.4.5-cdh5.4.9/ /home/hadoop/sqoop
 ```
 
-1.  加环境变量vim \~/.bashrc
+3.  加环境变量vim \~/.bashrc
 
 
 
@@ -59,7 +59,7 @@ export SQOOP_HOME=$HADOOP_HOME/sqoop
 export PATH=$PATH:$SQOOP_HOME/bin
 ```
 
-1.  配置sqoop环境变量
+4.  配置sqoop环境变量
 
 
 
@@ -86,7 +86,7 @@ export HIVE_HOME=/home/hadoop/hive
 export ZOOCFGDIR=/home/hadoop/zookeeper/conf
 ```
 
-1.  拷贝相关依赖
+5.  拷贝相关依赖
 
 
 
@@ -98,7 +98,7 @@ export ZOOCFGDIR=/home/hadoop/zookeeper/conf
 
 ### 1.2 从MySQL导出到HDFS
 
-\- mysql信息如下：
+- mysql信息如下：
 
 以MySQL 为例：
 
@@ -119,12 +119,11 @@ export ZOOCFGDIR=/home/hadoop/zookeeper/conf
 ```
 
 > 注解
-
-1.  10.10.50.79 mysql的ip
-2.  \\-\\-username 访问数据的用户名称
-3.  \\-\\-password 访问数据的密码
-4.  \\-\\-table t\\\_hadoop\\\_version 数据表名称
-5.  \\-\\-target\\-dir 数据导入到hdfs中的目标目录
+>1. 10.10.50.79 mysql的ip
+>2. --username 访问数据的用户名称
+>3. --password 访问数据的密码
+>4. --table t_hadoop_version 数据表名称
+>5. --target-dir 数据导入到hdfs中的目标目录
 
 #### 查看结果
 
@@ -143,16 +142,15 @@ export ZOOCFGDIR=/home/hadoop/zookeeper/conf
 ```
 
 > 注解：
-
 1.  10.10.50.79是mysql的ip
-2.  \\-\\-username test 访问数据的用户名称
-3.  \\-\\-password test 访问数据的密码
-4.  \\-\\-table t\\\_hadoop\\\_version 数据表名称
-5.  \\-\\-warehouse-dir hive数据库的hdfs目录
+2.  --username test 访问数据的用户名称
+3.  --password test 访问数据的密码
+4.  --table t_hadoop_version 数据表名称
+5.  --warehouse-dir hive数据库的hdfs目录
 
 #### 查看结果
 
-如图所示，mysql中的表格t\\\_hadoop\\\_version已经导入hive中
+如图所示，mysql中的表格t_hadoop_version已经导入hive中
 
 ![](/images/developer/sqoopjieguo2.jpg)
 
@@ -171,11 +169,11 @@ export ZOOCFGDIR=/home/hadoop/zookeeper/conf
 > 注解
 
 1.  10.10.50.79是mysql的ip
-2.  \\-\\-username test 访问数据的用户名称
-3.  \\-\\-password test 访问数据的密码
-4.  \\-\\-table t\\\_hadoop\\\_version 数据表名称
-5.  \\-\\-export-dir 要导出的数据目录
-6.  \\-\\-fields-terminated-by 数据分割方式
+2.  --username test 访问数据的用户名称
+3.  --password test 访问数据的密码
+4.  --table t_hadoop_version 数据表名称
+5.  --export-dir 要导出的数据目录
+6.  --fields-terminated-by 数据分割方式
 
 #### 查看结果
 
@@ -183,7 +181,7 @@ export ZOOCFGDIR=/home/hadoop/zookeeper/conf
 
 ![](/images/developer/sqoopjieguo3.jpg)
 
-## 2\. 在UHadoop中使用Sqoop
+## 2. 在UHadoop中使用Sqoop
 
 本例为在UHadoop集群的Master2节点上，使用sqoop，将内网（UDB或自建数据库）中MySQL数据库中的数据，以增量方式导入到UHadoop集群的Hive中。
 

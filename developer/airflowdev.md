@@ -7,7 +7,7 @@ Airflow是一个工作流分配管理系统，它通过有向无环图的方式�
 如果您创建集群勾选了Airflow，Airflow将被安装在uhadoop-\*\*\*\*\*\*-master1节点上。访问Airflow
 Web服务通过master1节点外网IP:8999访问（需要您开放master1节点绑定的外网防火墙8999端口）
 
-## 1\. Airflow示例
+## 1. Airflow示例
 
 详情请参考[官网介绍](http://pythonhosted.org/airflow/tutorial.html)
 

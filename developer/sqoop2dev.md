@@ -8,7 +8,7 @@ REST API、JAVA API、WEB UI以及CLI控制台方式进行访问，与Sqoop的�
 
 如果您创建集群勾选了Sqoop2，Sqoop2将被安装在uhadoop-\*\*\*\*\*\*-master2节点上。
 
-## 1\. 从MySQL导出到HDFS
+## 1. 从MySQL导出到HDFS
 
 ### 1.1 创建mysql数据
 
@@ -192,7 +192,7 @@ External ID: job_1481968387780_0011
 2016-12-22 14:40:10 CST: BOOTING  - Progress is not available
 ```
 
-## 2\. 从HDFS导出到MySQL
+## 2. 从HDFS导出到MySQL
 
 这里利用MySQL导入HDFS中创建的hdsf-link和mysql-link
 

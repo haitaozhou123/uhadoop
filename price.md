@@ -1,4 +1,4 @@
-{{indexmenu_n>}}
+{{indexmenu_n>1000}}
 
 # 产品价格
 
