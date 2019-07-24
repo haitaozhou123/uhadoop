@@ -4,11 +4,11 @@
 
 Hive是Hadoop生态系统中的数据仓库产品。它可以简单方便的存储、查询和分析存储在HDFS或者HBase的数据，它将sql语句转换成MapReduce任务，进行复杂的海量数据分析。它也提供了一系列工具，可用来多数据进行提取、转化和加载。
 
-## 1\. Hive Cli
+## 1. Hive Cli
 
 Hive Cli是Hive服务提供的一个方便操作Hive表的客户端。其基本操作如下：
 
-\- 打开Hive Cli
+- 打开Hive Cli
 
 在UHadoop任一master节点，或者安装了部署了Hive的客户端节点上执行hive即可：
 
@@ -16,49 +16,49 @@ Hive Cli是Hive服务提供的一个方便操作Hive表的客户端。其基本�
 [root@uhadoop-******-master1 ~]#hive
 ```
 
-\- 创建hive表
+- 创建hive表
 
 ```
   hive> create table test_hive (id int, name string);
 ```
 
-\- 插入数据
+- 插入数据
 
 ```
   hive> insert into test_hive values (1,'test_ucloud'),(2,'test_hive');
 ```
 
-\- 读取数据
+- 读取数据
 
 ```
   hive> select * from test_hive;
 ```
 
-\- 统计数据个数
+- 统计数据个数
 
 ```
   hive> select count(*) from test_hive;
 ```
 
-\- 命令行直接执行sql命令
+- 命令行直接执行sql命令
 
 ```
   hive -e "select * from test_hive"
 ```
 
-## 2\. Beeline
+## 2. Beeline
 
 Hive提供了一个可通过JDBC方式调用的服务Hive-server2（UHadoop中默认安装在master2节点上，服务端口10000）。
 
 利用beeline客户端可以远程连接Hive-server2服务，进而对hive数据进行操作。
 
-\- 启动beeline客户端
+- 启动beeline客户端
 
 ```
 [root@uhadoop-******-master1 ~]# beeline
 ```
 
-\- 连接hive-server2
+- 连接hive-server2
 
 ```
 beeline> !connect jdbc:hive2://uhadoop-******-master2:10000/default;
@@ -69,17 +69,17 @@ beeline> !connect jdbc:hive2://uhadoop-******-master2:10000/default;
 1.  用户名、密码默认可填空值
 2.  uhadoop-\*\*\*\*\*\*-master2须改成您集群master2节点的主机名称或者IP
 
-\- 数据操作
+- 数据操作
 
 同Hive Cli
 
-\- 在命令行直接提交sql命令：
+- 在命令行直接提交sql命令：
 
 ```
 beeline -ujdbc:hive2://uhadoop-******-master2:10000  -e "select * from test_hive"
 ```
 
-## 3\. Hive应用开发
+## 3. Hive应用开发
 
 ### 3.1 使用JAVA连接HiveServer2(实现创建表格、加载数据，展示数据操作)
 
@@ -87,7 +87,7 @@ beeline -ujdbc:hive2://uhadoop-******-master2:10000  -e "select * from test_hive
 
 org.apache.hive.jdbc.HiveDriver是hiveserver2的dirvername，hiveserver2的访问地址是"jdbc:hive2://ip:10000/default"
 
-\- 编写示例代码
+- 编写示例代码
 
 示例代码Hive2JdbcClient.java如下：
 
@@ -162,19 +162,16 @@ public class Hive2JdbcClient {
 ```
 
 > 注解：
+> 1. Connection con = DriverManager.getConnection("jdbc:hive2://uhadoop-\*\*\*\*\*\*-master2:10000/default", "", ""); 
+> 2. uhadoop-\*\*\*\*\*\*-master2须改成您集群master2节点的主机名称或者IP
 
-1.  Connection con =
-    DriverManager.getConnection("jdbc:hive2://uhadoop-\*\*\*\*\*\*-master2:10000/default",
-    "", ""); 
-2.  uhadoop-\*\*\*\*\*\*-master2须改成您集群master2节点的主机名称或者IP
-
-\- 编译
+- 编译
 
 ```
   javac Hive2JdbcClient.java
 ```
 
-\- 执行程序
+- 执行程序
 
 test.sh代码如下
 
@@ -209,16 +206,16 @@ java -cp $CLASSPATH Hive2JdbcClient
 
 Hiveserver2使用python客户端的过程如下：
 
-\- 下载pyhs2 git clone <https://github.com/BradRuderman/pyhs2.git>
+- 下载pyhs2 git clone <https://github.com/BradRuderman/pyhs2.git>
 
-\- 安装依赖 yum install gcc-c++ cyrus-sasl-\* python-devel
+- 安装依赖 yum install gcc-c++ cyrus-sasl-\* python-devel
 
-\- 安装setuptools wget -q <http://peak.telecommunity.com/dist/ez_setup.py>
+- 安装setuptools wget -q <http://peak.telecommunity.com/dist/ez_setup.py>
 ./python ez\_setup.py
 
 > 如果上面方式安装失败需要手动下载setuptools-0.6c11.tar.gz安装包安装
 
-\- 编译安装pyhs2
+- 编译安装pyhs2
 
 进入pyhs2目录并安装
 
@@ -228,7 +225,7 @@ python setup.py build
 python setup.py install
 ```
 
-\- 编写示例代码
+- 编写示例代码
 
 示例代码，即pyhs2下example.py
 
@@ -263,7 +260,7 @@ with pyhs2.connect(host='uhadoop-******-master2',
 
 通过在Hive中创建HBase外表，可利用简单的sql语句分析HBase的非结构化数据
 
-\- 打开HBase shell，创建t1表
+- 打开HBase shell，创建t1表
 
 ```
 create 't1',{NAME => 'f1',VERSIONS => 2}
@@ -283,7 +280,7 @@ ROW                                            COLUMN+CELL
  rowkey001                                     column=f1:colf, timestamp=1481075364641, value=value03
 ```
 
-\- 打开Hive Cli，创建外表
+- 打开Hive Cli，创建外表
 
 ```
 hive> CREATE EXTERNAL TABLE t_hive_hbase(
@@ -295,7 +292,7 @@ hive> CREATE EXTERNAL TABLE t_hive_hbase(
     > TBLPROPERTIES ("hbase.table.name" = "t1");
 ```
 
-\- 使用sql语句读取hbase数据，结果如下
+- 使用sql语句读取hbase数据，结果如下
 
 ```
 hive> select * from  t_hive_hbase;
@@ -350,25 +347,25 @@ public class UDFLower extends UDF{
 
 5 打包UDFLower.jar
 
-\-- 执行导出
+-- 执行导出
 
 ![](/images/hive-develop-04.jpg)
 
-\-- 选择JAR file
+-- 选择JAR file
 
 ![](/images/hive-develop-05.jpg)
 
-\-- 修改导出目录名称，并点击Finish，UDFLower.jar便制作完成了
+-- 修改导出目录名称，并点击Finish，UDFLower.jar便制作完成了
 
 ![](/images/hive-develop-06.jpg)
 
-\-- 通过ssh命令上传至uhadoop master1节点
+-- 通过ssh命令上传至uhadoop master1节点
 
 如果master1已绑定外网，可直接通过外网IP上传，如果没有，请通过有外网IP的机器跳转
 
 #### 在Linux下编写自定义Hive udf函数
 
-\- 创建代码
+- 创建代码
 
 登录uhadoop-\*\*\*\*\*\*-master1节点，进入/data目录，创建udf代码
 
@@ -394,7 +391,7 @@ public class UDFLower extends UDF{
 }
 ```
 
-\- 同目录下创建编译文件compile.sh
+- 同目录下创建编译文件compile.sh
 
 ```
 #!/bin/bash
@@ -419,11 +416,11 @@ jar cvf UDFLower.jar UDFLower.class
 
 #### 利用上述生成的UDFLower.jar进行Hive示例
 
-\- 进入UDFLower.jar所在目录，上传至HDFS目录
+- 进入UDFLower.jar所在目录，上传至HDFS目录
 
     hadoop fs -put UDFLower.jar /tmp/
 
-\- 测试数据准备
+- 测试数据准备
 
 测试文件test.txt，内容如下
 
@@ -436,20 +433,20 @@ HELLO WORLD HEHE
 
     hadoop fs -put test.txt /tmp/
 
-\- Hive Cli中创建相关数据表，并load数据
+- Hive Cli中创建相关数据表，并load数据
 
 ```
 hive> create table test_hive_udf (name string);
 hive> load data inpath  '/test/1/test.txt' into table test_hive_udf;
 ```
 
-\- 创建temporary function
+- 创建temporary function
 
 ```
 hive> create temporary function my_lower as 'UDFLower';
 ```
 
-\- 使用自定义UDF
+- 使用自定义UDF
 
 ```
 hive> select name from test_hive_udf;
@@ -458,7 +455,7 @@ hive> select my_lower(name) from test_hive_udf;
 
 ### 4.2 支持json格式数据
 
-\- 数据准备
+- 数据准备
 
 上传数据test.json数据到hdfs
 
@@ -470,7 +467,7 @@ test.json数据如下
 
     hdfs dfs -put test.json /tmp/test.json
 
-\- 加载依赖包
+- 加载依赖包
 
 hive解析json格式的数据依赖hive-json-serde.jar，如果通过beeline无需再通过add
 jar加载对应的jar包。如果你使用的hive cli接口需要add jar，做如下操作：
@@ -481,19 +478,19 @@ hive> add jar $HIVE_HOME/lib/hive-json-serde.jar;
 
 > hive1.2.1版本尚未提供此包
 
-\- 创建hive表格
+- 创建hive表格
 
 ```
 hive> CREATE TABLE test_json(id BIGINT,text STRING)ROW FORMAT SERDE 'org.apache.hadoop.hive.contrib.serde2.JsonSerde' STORED AS TEXTFILE;
 ```
 
-\- 加载数据
+- 加载数据
 
 ```
 hive> LOAD DATA  INPATH "/tmp/test.json" OVERWRITE INTO TABLE test_json;
 ```
 
-\- 执行查询
+- 执行查询
 
 返回如下说明使用json文件解析成功
 
@@ -505,7 +502,7 @@ OK
 
 ### 4.3 使用正则匹配
 
-\- 数据准备
+- 数据准备
 
 上传测试数据nginx\_log到hdfs
 
@@ -520,7 +517,7 @@ hdfs dfs -put nginx_log /tmp/nginx_log
 
 ```
 
-\- 加载依赖包
+- 加载依赖包
 
 hive正则匹配使用依赖hive-contrib.jar，如果通过beeline无需再通过add jar加载对应的jar包。如果你使用的hive
 cli接口需要add jar，做如下操作：
@@ -529,7 +526,7 @@ cli接口需要add jar，做如下操作：
 hive> add jar $HIVE_HOME/lib/hive-contrib.jar;
 ```
 
-\- 创建测试表格
+- 创建测试表格
 
 ```
 hive> CREATE TABLE logs(
@@ -545,13 +542,13 @@ hive> CREATE TABLE logs(
 > 注解：创建表格的时候需要指定ROW FORMAT SERDE，SERDEPROPERTIES中的
 > input.regex和output.format.string
 
-\- 加载数据
+- 加载数据
 
 ```
 hive> LOAD DATA INPATH "/tmp/nginx_log" INTO TABLE logs;
 ```
 
-\- 测试数据
+- 测试数据
 
 返回如下说明正则表达式使用成功
 

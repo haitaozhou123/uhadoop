@@ -71,7 +71,7 @@ yum install -y openvpn
 openvpn --daemon --config client.ovpn
 ```
 
-## 3\. 配置hosts
+## 3. 配置hosts
 
 确保服务端和客户端里，所有节点的主机名和IP相匹配，方便在浏览器服务。例如：
 

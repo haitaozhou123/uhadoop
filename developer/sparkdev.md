@@ -2,7 +2,7 @@
 
 # Spark开发指南
 
-## 1\. Spark简介
+## 1. Spark简介
 
 Spark是一个基于内存计算的开源的集群计算系统，相对于MapReduce，Spark使用了更为快速的计算引擎，可以更有效地支持多种类型的计算，如交互式查询和流处理。Spark被设计的高度易访问，并提供了丰富的内建库，可以使用Python、Java、Scala或SQL设计Spark任务。
 
@@ -10,15 +10,15 @@ Spark是一个基于内存计算的开源的集群计算系统，相对于MapRed
 
 Spark可以有以下几种运行方式：
 
-\- Local:
+- Local:
 
 以本地单线程的方式运行Spark，一般适用于本地开发、测试。
 
-\- Spark Standalone:
+- Spark Standalone:
 
 以运行一个主节点Master和多个工作节点Worker的方式运行Spark，自带完整的服务，可单独部署到一个集群中，无需依赖任何其他资源管理系统。
 
-\- Spark on yarn（UHadoop采用的方式）
+- Spark on yarn（UHadoop采用的方式）
 
 基于Hadoop的资源管理系统Yarn，Spark作为提交任务的客户端，所有任务都提交到Yarn上，由Yarn来分配任务执行。Spark on
 yarn也分为yarn-cluster与yarn-client模式。区别如下：
@@ -28,7 +28,7 @@ yarn也分为yarn-cluster与yarn-client模式。区别如下：
   - yarn-client：Driver运行在本地。任务提交后，客户端需要和Container通信进行作业的调度。适用于交互类任务和调试，可更加方便的看到任务的结果。
 ```
 
-## 2\. Spark使用方式
+## 2. Spark使用方式
 
 ### 2.1 Spark-submit
 
@@ -37,11 +37,14 @@ yarn也分为yarn-cluster与yarn-client模式。区别如下：
 
 **示例**
 
-\- Example：spark-submit提交示例程序中计算pi的任务
+- Example：spark-submit提交示例程序中计算pi的任务
 
-\`\`\` spark-submit --master yarn --deploy-mode client --num-executors 2
+```
+spark-submit --master yarn --deploy-mode client --num-executors 2
 --executor-cores 1 --executor-memory 1G
-$SPARK\_HOME/examples/src/main/python/pi.py 100 \`\`\`
+$SPARK\_HOME/examples/src/main/python/pi.py 100
+
+```
 
 更多关于提交任务的操作请参考：
 <https://spark.apache.org/docs/1.6.0/submitting-applications.html>
@@ -66,9 +69,7 @@ $SPARK\_HOME/examples/src/main/python/pi.py 100 \`\`\`
 > 
 > 这个例子的输出结果是使用标准输出打印的:System.out.println("Pi is roughly " + 4.0 \* count
 > / n)
-
-\>
-
+>
 > 所以只有client模式会打印到屏幕上，yarn模式需要去log中查看
 > hdfs://Ucluster/var/log/hadoop-yarn/apps/hadoop/logs/applicationid
 
@@ -78,23 +79,23 @@ spark-shell是Spark提供的可通过scala语言快速实现任务执行的方�
 
 **示例**
 
-\- 启动spark-shell客户端
+- 启动spark-shell客户端
 
     spark-shell
 
-\- 构造一个HiveContext
+- 构造一个HiveContext
 
     scala> val sqlContext = new org.apache.spark.sql.hive.HiveContext(sc);
 
-\- 创建表格src
+- 创建表格src
 
     scala> sqlContext.sql("CREATE TABLE IF NOT EXISTS src (key INT,value STRING)")
 
-\- 从本地文件加载数据
+- 从本地文件加载数据
 
     scala> sqlContext.sql("LOAD DATA LOCAL INPATH '/home/hadoop/spark/examples/src/main/resources/kv1.txt' INTO TABLE src")
 
-\- 表格操作，显示表src数据
+- 表格操作，显示表src数据
 
     scala> sqlContext.sql("FROM src SELECT key, value").collect().foreach(println);
 
@@ -105,11 +106,11 @@ SQL
 
 **示例**
 
-\- 启动spark-sql客户端
+- 启动spark-sql客户端
 
     spark-sql
 
-\- 执行sql查询
+- 执行sql查询
 
     spark-sql> select * from src;
 
@@ -128,19 +129,19 @@ For-example:
 
 spark-shell启动后我们即可进行相关的操作:
 
-\- 构造一个HiveContext
+- 构造一个HiveContext
 
 ![](/images/developer/sparkhive.jpg)
 
-\- 创建表格src
+- 创建表格src
 
 ![](/images/developer/sparkbiaoge.jpg)
 
-\- 加载数据
+- 加载数据
 
 ![](/images/developer/sparkjiazaibiao.jpg)
 
-\- 表格操作
+- 表格操作
 
 ![](/images/developer/sparkbiaocaozuo.jpg)
 
@@ -162,22 +163,22 @@ spark-sql启动之后我们就可以使用Hive的表格进行相关操作。
 
 **示例**
 
-\- 启动spark-thriftserver Master1节点上hadoop用户下执行
+- 启动spark-thriftserver Master1节点上hadoop用户下执行
 
     /home/hadoop/spark/sbin/start-thriftserver.sh --hiveconf hive.server2.thrift.port=10000 --hiveconf hive.server2.thrift.bind.host=`hostname`  --supervise
 
-\- beeline的方式连接thrift接口
+- beeline的方式连接thrift接口
 
     beeline> !connect jdbc:hive2://uhadoop-******-master1:10000/default;
 
 > 注解：此处用户名密码传空即可
 
-\- 执行sql
+- 执行sql
 
     0: jdbc:hive2://uhadoop-*****-master1:10000/> show tables;
     0: jdbc:hive2://uhadoop-*****-master1:10000/> select * from src;
 
-## 3\. Spark应用开发
+## 3. Spark应用开发
 
 ### 3.1 JAVA - WordCount示例
 
@@ -207,14 +208,14 @@ spark-sql启动之后我们就可以使用Hive的表格进行相关操作。
 
 ![](/images/developer/sparkkaifa3.jpg)
 
-1.  创建lib目录把工程依赖包spark-assembly-1.4.1-hadoop2.6.0-cdh5.4.4.jar加入lib包内，并add
+2.  创建lib目录把工程依赖包spark-assembly-1.4.1-hadoop2.6.0-cdh5.4.4.jar加入lib包内，并add
     to build path
 
 ![](/images/developer/sparkkaifa4.jpg)
 
 ![](/images/developer/sparkkaifa5.jpg)
 
-1.  完成功能代码
+3.  完成功能代码
 
 代码内容如下：
 
@@ -279,7 +280,7 @@ spark-sql启动之后我们就可以使用Hive的表格进行相关操作。
   }
 ```
 
-1.  导出工程文件
+1. 导出工程文件
 
 ![](/images/developer/sparkkaifa6.jpg)
 
@@ -287,7 +288,7 @@ spark-sql启动之后我们就可以使用Hive的表格进行相关操作。
 
 ![](/images/developer/sparkkaifa8.jpg)
 
-1.  数据准备
+2. 数据准备
 
 将一段文本上传到 hdfs的这个位置 /input/kv1.txt
 
@@ -295,7 +296,7 @@ spark-sql启动之后我们就可以使用Hive的表格进行相关操作。
 hdfs dfs –put kv1.txt /input/kv1.txt
 ```
 
-1.  提交任务运行
+3. 提交任务运行
 
 
 
@@ -309,7 +310,7 @@ hdfs dfs –put kv1.txt /input/kv1.txt
 
 ### 3.2 Scala - HiveFromSpark示例
 
-\- 安装sbt
+- 安装sbt
 
 ```
 curl https://bintray.com/sbt/rpm/rpm > bintray-sbt-rpm.repo
@@ -317,7 +318,7 @@ sudo mv bintray-sbt-rpm.repo /etc/yum.repos.d/
 sudo yum install sbt -y
 ```
 
-\- 构建代码
+- 构建代码
 
 以Spark example的HiveFromSpark为例：
 
@@ -381,7 +382,7 @@ object HiveFromSpark {
 }
 ```
 
-\- 构建sbt文件
+- 构建sbt文件
 
 ```
 cd /data/HiveFromSpark/
@@ -400,7 +401,7 @@ libraryDependencies += "org.apache.spark" %% "spark-sql" % "1.6.0"
 libraryDependencies += "org.apache.spark" % "spark-hive_2.10" % "1.6.0"
 ```
 
-\- 编译
+- 编译
 
 ```
 cd /data/HiveFromSpark/
@@ -410,7 +411,7 @@ sbt package
 > 由于需要连接maven下载相关依赖包，编译时间受网络环境限制，请耐心等待， 编译后文件位于
 > /data/HiveFromSpark/target/scala-2.10/hivefromspark\_2.10-1.0.jar
 
-\- 执行
+- 执行
 
 client模式:
 

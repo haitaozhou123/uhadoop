@@ -2,7 +2,7 @@
 
 # 数据迁移
 
-## 1\. HDFS迁移
+## 1. HDFS迁移
 
 #### 拷贝单个目录或文件
 
@@ -12,7 +12,7 @@
 
 详情参考：<http://hadoop.apache.org/docs/r1.0.4/cn/distcp.html>
 
-## 2\. Hive迁移
+## 2. Hive迁移
 
 **step1: 设置默认需要导出的hive数据库为defaultDatabase**
 
@@ -64,7 +64,7 @@ use defaultDatabase;
 更多内容请参考：
 <https://cwiki.apache.org/confluence/display/Hive/LanguageManual+ImportExport#LanguageManualImportExport-Examples>
 
-## 3\. HBase迁移
+## 3. HBase迁移
 
 HBase迁移参考：<http://www.tuicool.com/articles/QJFn22E>
 
@@ -95,7 +95,7 @@ HBase迁移参考：<http://www.tuicool.com/articles/QJFn22E>
 
 此ID应和上述REPLICATION\_SCOPE相同
 
-\- 可用如下命令停止自动复制功能
+ - 可用如下命令停止自动复制功能
 
     disable_peer 'peer_id'
 
@@ -105,11 +105,11 @@ HBase迁移参考：<http://www.tuicool.com/articles/QJFn22E>
 
 迁移HDFS中HBase数据的两种方案如下：
 
-\- 利用HDFS的distcp工具
+ - 利用HDFS的distcp工具
 
     hadoop distcp -overwrite hdfs://sourceIP:8020/hbaseDir hdfs://targetIP:8020/hbase
 
-\- 通过scp拷贝方式传输
+ - 通过scp拷贝方式传输
 
     hadoop fs -copyToLocal /hbase hbase-data
     scp 拷贝到target集群
@@ -124,19 +124,19 @@ HBase迁移参考：<http://www.tuicool.com/articles/QJFn22E>
 
 > 详情：hbase hbck -h
 
-## 4\. 将数据导入到hive并自动分区
+## 4. 将数据导入到hive并自动分区
 
-\- 1. 创建目标分区的表。
+ - 1. 创建目标分区的表。
 
     hive> create table t_part (id int, name string) partitioned by (stat_date string , province string);
 
-\- 2.导入外部表。 创建外部表（创建外部表的开销几乎为0）：
+ - 2.导入外部表。 创建外部表（创建外部表的开销几乎为0）：
 
 ``` sql
 create external table ext( id int, name string, stat_date string, province string) row format delimited fields terminated by ' ' lines terminated by '\n' stored as textfile location '/data/x.txt';
 ```
 
-\- 3.将分区信息到入到目标表中
+ - 3.将分区信息到入到目标表中
 
     hive> set hive.exec.dynamic.partition=true;
     hive> set hive.exec.dynamic.partition.mode=nostrict;
@@ -150,15 +150,15 @@ create external table ext( id int, name string, stat_date string, province strin
     时间：
     Total MapReduce CPU Time Spent: 0 days 1 hours 19 minutes 32 seconds 330 msec
 
-## 5\. Flume导数据到Hive
+## 5. Flume导数据到Hive
 
 以下步骤以flume-1.6.0为例，[点此下载](http://uhadoop.ufile.ucloud.com.cn/flume/apache-flume-1.6.0-bin.tar.gz)
 
-\*\* 限制说明 \*\*
+** 限制说明 **
 
-\- 只支持orc存储格式的hive表
+ - 只支持orc存储格式的hive表
 
-\- 支持带有buckets的表
+ - 支持带有buckets的表
 
 ``` 
 CREATE EXTERNAL TABLE stocks (
@@ -175,21 +175,21 @@ STORED AS ORC；
 
 ```
 
-\- partition是可选项
+ - partition是可选项
 
-\- 数据源只支持csv和json两种格式
+ - 数据源只支持csv和json两种格式
 
-\- hivesink使兼容的版本是hive1.0.0
+ - hivesink使兼容的版本是hive1.0.0
 
-\- metastore 增加下面的配置,然后重启metastore
+ - metastore 增加下面的配置,然后重启metastore
 
     hive.txn.manager = org.apache.hadoop.hive.ql.lockmgr.DbTxnManager
     hive.compactor.initiator.on = true
     hive.compactor.worker.threads = 5
 
-\*\* Flume配置 \*\*
+** Flume配置 **
 
-\- flume.conf
+ - flume.conf
 
     a1.sources = src1
     a1.channels = chan1
@@ -224,13 +224,11 @@ STORED AS ORC；
     a1.sinks.sink1.serializer.fieldnames = date,open,high,low,close,volume,adj_close
 
 > 注意：
-
-\>
-
+>
 > a1.sinks.sink1.hive.metastore = thrift:*ip1:9083,thrift:*ip2:9083
 > 中的ip1,ip2需要修改成具体的ip
 
-\*\* 下载依赖包 \*\*
+** 下载依赖包 **
 
 <http://mirrors.ucloud.cn/ucloud/udata/hivesink.gz>
 
@@ -252,7 +250,5 @@ STORED AS ORC；
 ```
 
 > \-n 指定的是 config 文件中启动的agent的名字
-
-\>
-
+>
 > \-f 指定了配置文件

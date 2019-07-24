@@ -8,7 +8,7 @@
 
 \>
 
-### 1\. NumPy
+### 1. NumPy
 
 [NumPy](http://www.numpy.org/)一个用python实现的科学计算包，可用来存储和处理大型矩阵，比Python自身的嵌套列表结构要高效的多。
 
@@ -22,15 +22,13 @@ cd numpy-1.12.0
 python setup.py install
 ```
 
-### 2\. SciPy
+### 2. SciPy
 
 [SciPy](https://www.scipy.org/)是一款专为科学和工程设计的Python工具包。
 
 最新版SciPy可以在[PyPI网站](https://pypi.python.org/pypi?%3Aaction=search&term=scipy&submit=search)搜索到，scipy-0.18.1版本可以[点击下载](http://uhadoop-new.ufile.ucloud.com.cn/python/scipy-0.18.1.tar.gz)。
 
 > 在安装Scipy前，需要先安装好NumPy。
-
-\>
 
 以scipy-0.18.1版本为例，安装方法如下：
 
@@ -40,15 +38,13 @@ cd scipy-0.18.1
 python setup.py install
 ```
 
-### 3\. Scikit-Learn
+### 3. Scikit-Learn
 
 [Scikit-Learn](http://scikit-learn.org/)是SciPy下，专门面向机器学习的工具包。
 
 最新版Scikit-Learn可以在[PyPI网站](https://pypi.python.org/pypi?%3Aaction=search&term=scikit-learn&submit=search)搜索到，scikit-learn-0.18.1版本可以[点击下载](http://uhadoop-new.ufile.ucloud.com.cn/python/scikit-learn-0.18.1.tar.gz)。
 
 > 在安装Scikit-Learn前，需要先安装好NumPy和Scipy。
-
-\>
 
 以scikit-learn-0.18.1版本为例，安装方法如下：
 
@@ -58,7 +54,7 @@ cd scikit-learn-0.18.1
 python setup.py install
 ```
 
-### 4\. Sympy
+### 4. Sympy
 
 [SymPy](http://sympy.org/)是Python的数学符号计算库，用它可以进行数学公式的符号推导。
 
@@ -72,7 +68,7 @@ cd sympy-1.0
 python setup.py install
 ```
 
-### 5\. Pandas
+### 5. Pandas
 
 [Pandas](http://pandas.pydata.org/) (Python Data Analysis
 Library)是基于NumPy的解决数据分析任务的一种工具。
@@ -87,7 +83,7 @@ cd pandas-0.19.2
 python setup.py install
 ```
 
-### 6\. Matplotlib
+### 6. Matplotlib
 
 [Matplotlib](http://matplotlib.org/)是Python常用的绘图库，它提供了一整套和matlab相似的命令API，十分适合交互式地进行制图。
 
@@ -102,7 +98,7 @@ cd matplotlib-2.0.0
 python setup.py install
 ```
 
-### 7\. MySQLdb
+### 7. MySQLdb
 
 [MySQLdb](https://pypi.python.org/pypi/MySQL-python/)是Python提供的连接MySQL的接口。
 

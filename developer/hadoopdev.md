@@ -4,7 +4,7 @@
 
 > 注解：本例中所运行脚本需在CentOS操作系统上，其他操作系统请修改脚本后再尝试执行。
 
-## 1\. 在UHost上安装Hadoop客户端
+## 1. 在UHost上安装Hadoop客户端
 
 出于安全性考虑，一般建议用户在非UHadoop集群机器上安装客户端进行任务提交与相关操作
 
@@ -35,15 +35,15 @@ port：客户机ssh连接端口
 
 ### 1.2 自行安装
 
-\- 安装jdk，从集群master1节点上拷贝安装包到UHost：
+- 安装jdk，从集群master1节点上拷贝安装包到UHost：
 
 ```
 scp -r root@master_ip:/usr/java /usr/
 ```
 
-\- 安装hadoop客户端，从集群master1节点上拷贝安装包到UHost：
+- 安装hadoop客户端，从集群master1节点上拷贝安装包到UHost：
 
-> 注解：hadoop-\<version\>为hadoop具体对应的版本，可查看master的/home/hadoop/bin的软连接指向的版本，下同
+> 注解：hadoop-<version>为hadoop具体对应的版本，可查看master的/home/hadoop/bin的软连接指向的版本，下同
 
 ```
 #hadoop
@@ -60,16 +60,16 @@ scp -r root@master_ip:/home/hadoop/spark /root/
 scp -r root@master_ip:/home/hadoop/pig /root/
 ```
 
-\- 修改配置
+- 修改配置
 
-\--增加hosts映射，从集群master1节点上拷贝文件夹到UHost：
+--增加hosts映射，从集群master1节点上拷贝文件夹到UHost：
 
 ```
   scp root@master_ip:/etc/hosts /tmp/hosts
   cat /tmp/hosts | grep uhadoop >> /etc/hosts
 ```
 
-\--修改环境变量
+--修改环境变量
 
 修改/etc/profile或\~/.bashrc，增加以下内容
 
@@ -104,29 +104,29 @@ scp -r root@master_ip:/home/hadoop/pig /root/
   export LD_LIBRARY_PATH=$HADOOP_HOME/lib/native:/usr/lib64:/usr/local/cuda/lib64:/usr/local/cuda/lib:$LD_LIBRARY_PATH
 ```
 
-\--让环境生效
+--让环境生效
 
 ```
   source /etc/profile或者 source ~/.bashrc
 ```
 
-## 2\. HDFS
+## 2. HDFS
 
 HDFS是一个高度容错性和高吞吐量的分布式文件系统。它被设计的易于扩展也易于使用，适合海量文件的存储。
 
 ### 2.1 HDFS基础操作
 
-\- 查询文件
+- 查询文件
 
 Usage: hadoop fs \[generic options\] -ls \[-d\] \[-h\] \[-R\] \[\<path\>
 ...\]
 
-\- 上传文件
+- 上传文件
 
 Usage: hadoop fs \[generic options\] -put \[-f\] \[-p\] \[-l\]
 \<localsrc\> ... \<dst\>
 
-\- 下载文件
+- 下载文件
 
 Usage: hadoop fs \[generic options\] -get \[-p\] \[-ignoreCrc\] \[-crc\]
 \<src\> ... \<localdst\>
@@ -141,24 +141,22 @@ WebHDFS提供HDFS的RESTful接口，可通过此接口进行HDFS文件操作。�
 
 UHadoop集群默认配置2个Master节点，同一时刻只有一个节点Namenode处于Active状态，另一个处于Standby状态。下面以uhadoop-\*\*\*\*\*\*-master1的Namenode为Active为例
 
-\- 数据准备
+- 数据准备
 
 ```
   touch uhadoop.txt
   echo "uhadoop" > uhadoop.txt
 ```
 
-\- 创建文件请求
+- 创建文件请求
 
 ```
   curl -i -X PUT "http://uhadoop-******-master1:50070/webhdfs/v1/tmp/uhadoop.txt?op=CREATE"
 ```
 
 > 注解：
-
-1.  需要在执行此命令机器加上集群所有节点host
-2.  若提示Operation category READ is not supported in state
-    standby，请更换uhadoop-\*\*\*\*\*\*-master2尝试
+> 1. 需要在执行此命令机器加上集群所有节点host
+> 2. 若提示Operation category READ is not supported in state standby，请更换uhadoop-\*\*\*\*\*\*-master2尝试
 
 执行上述命令将获取到Location地址，即文件的Datanode地址
 
@@ -168,7 +166,7 @@ Location: http://<DATANODE>:<PORT>/webhdfs/v1/<PATH>?op=CREATE...
 Content-Length: 0
 ```
 
-\- 使用上述Location地址上传文件
+- 使用上述Location地址上传文件
 
 ```
   curl -i -X PUT -T uhadoop.txt "http://uhadoop-******-core*:50075/webhdfs/v1/tmp/uhadoop.txt?op=CREATE&namenoderpcaddress=Ucluster&overwrite=false"
@@ -176,14 +174,14 @@ Content-Length: 0
 
 #### 2.2.2 append文件
 
-\- 数据准备
+- 数据准备
 
 ```
   touch  append_uhadoop.txt
   echo "ucloud" > append_uhadoop.txt
 ```
 
-\- 获取被append文件地址
+- 获取被append文件地址
 
 ```
   curl -i -X POST "http://uhadoop-hfygbg-master1:50070/webhdfs/v1/tmp/uhadoop.txt?op=APPEND"
@@ -197,7 +195,7 @@ Location: http://<DATANODE>:<PORT>/webhdfs/v1/<PATH>?op=CREATE...
 Content-Length: 0
 ```
 
-\- 追加文件
+- 追加文件
 
 ```
   curl -i -X POST -T append_uhadoop.txt "http://uhadoop-******-core*:50075/webhdfs/v1/tmp/uhadoop.txt?op=APPEND&namenoderpcaddress=Ucluster"
@@ -222,34 +220,33 @@ API对HDFS进行读写等访问。与WebHDFS的区别是，Httpfs不需要客户
 
 #### 2.3.1 上传文件
 
-\- 数据准备
+- 数据准备
 
 ```
   touch httpfs_uhadoop.txt
   echo "httpfs_uhadoop" > httpfs_uhadoop.txt
 ```
 
-\- 上传数据
+- 上传数据
 
 ```
   curl -i -X PUT -T httpfs_uhadoop.txt --header "Content-Type: application/octet-stream" "http://uhadoop-******-master1:14000/webhdfs/v1/tmp/httpfs_uhadoop.txt?op=CREATE&user.name=root&data=true"
 ```
 
 > 注解：
-
-1.  需要在执行此命令机器加上集群master1的host
-2.  url中需添加user.name，否则会报"HTTP Status 401 - Authentication required"错误
+> 1. 需要在执行此命令机器加上集群master1的host
+> 2. url中需添加user.name，否则会报"HTTP Status 401 - Authentication required"错误
 
 #### 2.3.2 append文件
 
-\- 数据准备
+- 数据准备
 
 ```
   touch append_httpfs.txt
   echo "append_httpfs" > append_httpfs.txt
 ```
 
-\- 追加文件
+- 追加文件
 
 ```
   curl -i -X POST -T append_httpfs.txt --header "Content-Type: application/octet-stream" "http://uhadoop-******-master1:14000/webhdfs/v1/tmp/httpfs_uhadoop.txt?op=APPEND&user.name=root&data=true"
@@ -272,13 +269,13 @@ API对HDFS进行读写等访问。与WebHDFS的区别是，Httpfs不需要客户
 
 以terasort为例，说明如何提交一个MapReduce Job
 
-\- 生成官方terasort input数据集
+- 生成官方terasort input数据集
 
 ```
   hadoop jar /home/hadoop/hadoop-examples.jar teragen 100 /tmp/terasort_input
 ```
 
-\- 提交任务
+- 提交任务
 
 ```
   hadoop jar /home/hadoop/hadoop-examples.jar  terasort /tmp/terasort_input /tmp/terasort_output

@@ -2,27 +2,21 @@
 
 # Pig开发指南
 
-## 1\. 简单示例
+## 1. 简单示例
 
-1.  上传数据到hdfs目录
-
-
+ 1. 上传数据到hdfs目录
 
 ```
 [hadoop@uhadoop-******-master1 pig]$ hadoop fs -put /etc/passwd /user/hadoop/passwd
 ```
 
-1.  启动pig
-
-
+ 2. 启动pig
 
 ```
 [hadoop@uhadoop-******-master1 pig]$ pig
 ```
 
-1.  加载数据
-
-
+ 3. 加载数据
 
 ```
 grunt> A = load 'passwd' using PigStorage(':');
@@ -36,9 +30,9 @@ grunt> dump A;
 ……
 ```
 
-## 2\. 使用UDF
+## 2. 使用UDF
 
-\- 准备数据
+- 准备数据
 
 student 文件内容
 
@@ -51,7 +45,7 @@ student 文件内容
 hdfs dfs -put student /user/root/student
 ```
 
-\- 示例代码
+- 示例代码
 
 ``` java
 package myudfs;
@@ -74,7 +68,7 @@ public class UPPER extends EvalFunc<String>
 }
 ```
 
-\- 编译
+- 编译
 
 ```
 cd myudfs
@@ -92,13 +86,13 @@ B = FOREACH A GENERATE myudfs.UPPER(name);
 DUMP B;
 ```
 
-\- 执行
+- 执行
 
 ```
 pig upper.pig
 ```
 
-\- 输出结果
+- 输出结果
 
     (ANY 9 5)
     (BOB 8 4)

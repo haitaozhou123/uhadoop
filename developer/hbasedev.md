@@ -4,7 +4,7 @@
 
 HBase是一个高可靠性、高性能、面向列、可伸缩的分布式存储系统，它支持通过key/value存储来支持实时分析，也支持通过map-reduce支持批处理分析。
 
-## 1\. HBase shell
+## 1. HBase shell
 
 Hbase shell是简单的，通过shell与HBase交互的方式，以下介绍使用方法：
 
@@ -77,7 +77,7 @@ hbase(main):012:0> drop 'test_ucloud'
 hbase(main):013:0> exit
 ```
 
-## 2\. 为Hbase开启LZO压缩
+## 2. 为Hbase开启LZO压缩
 
 UHadoop集群中HBase已经默认配置支持LZO压缩，只需修改表COMPRESSION属性即可。
 
@@ -99,13 +99,13 @@ TED_CELLS => 'FALSE', BLOCKSIZE => '65536', IN_MEMORY => 'false', BLOCKCACHE => 
 
 #### 2.2 为已存在的表增加COMPRESSION=LZO属性
 
-\- 假设您已创建test-nolzo表，如没有，可通过下面的语句创建
+- 假设您已创建test-nolzo表，如没有，可通过下面的语句创建
 
 ```
 create 'test-nolzo', {NAME=>'cf'} 
 ```
 
-\- 增加COMPRESSION属性需要先distable表，再修改COMPRESSION属性为LZO，最后enable表。
+- 增加COMPRESSION属性需要先distable表，再修改COMPRESSION属性为LZO，最后enable表。
 
 ```
 hbase(main):002:0> disable 'test-nolzo'
@@ -121,7 +121,7 @@ hbase(main):004:0> enable 'test-nolzo'
 0 row(s) in 1.2140 seconds
 ```
 
-\- 修改COMPRESSION后并不会压缩原有数据，可通过执行以下命令强制执行
+- 修改COMPRESSION后并不会压缩原有数据，可通过执行以下命令强制执行
 
 ```
 hbase(main):005:0> major_compact 'test-nolzo'
@@ -132,11 +132,11 @@ hbase(main):005:0> major_compact 'test-nolzo'
 > 
 > 数据量大的表此操作需等待较久时间。
 
-## 3\. 使用Hive读取HBase数据
+## 3. 使用Hive读取HBase数据
 
 请参考[Hive应用开发](https://docs.ucloud.cn/analysis/uhadoop/developer/hivedev#hive外表读取hbase数据)
 
-## 4\. HBase应用开发
+## 4. HBase应用开发
 
 ### 4.1 使用JAVA读取HBase（实现创建表格、插入数据，展示数据操作）
 
@@ -237,14 +237,14 @@ public class HbaseJob {
 
 #### 4.1.2 构建编译程序
 
-\- 创建编译目录和文件
+- 创建编译目录和文件
 
 ```
 cd /data/hbase-example
 touch hbase-test.sh
 ```
 
-\- hbase-test.sh 代码如下：
+- hbase-test.sh 代码如下：
 
 ```
 #!/bin/bash
@@ -289,41 +289,41 @@ sh hbase-test.sh
 值:  101
 ```
 
-## 5\. HBase日常运维操作
+## 5. HBase日常运维操作
 
 以下操作需要在UHadoop集群master节点下以hadoop用户下执行，否则会出现权限不足提示
 
-\- 查看hbase region状态信息查询
+- 查看hbase region状态信息查询
 
 ```
 hbase hbck
 ```
 
-\- 存在inconsistencies region修复 -
+- 存在inconsistencies region修复 -
 
 ```
 hbase hbck -repair
 ```
 
-\- 修复hbase空洞 -
+- 修复hbase空洞 -
 
 ```
 hbase hbck -fixHdfsHoles
 ```
 
-\- 修复meta信息（根据meta表，将表上的region分给regionserver）
+- 修复meta信息（根据meta表，将表上的region分给regionserver）
 
 ```
 hbase hbck -fixMeta
 ```
 
-\- 重新修复meta表（根据hdfs上的regioninfo文件，生成meta表）
+- 重新修复meta表（根据hdfs上的regioninfo文件，生成meta表）
 
 ```
 hbase hbck -fixAssignments
 ```
 
-\- 开启region自动均衡
+- 开启region自动均衡
 
 需要在hbase shell下开启：
 

@@ -8,11 +8,11 @@
 
 通过UHadoop集群列表页面进入集群管理页面：
 
-![集群管理入口.png](/images/operate/集群管理入口.png)
+![](/images/operate/集群管理入口.png)
 
 ### 2、获取当前节点配置信息
 
-![节点概览.png](/images/operate/节点概览.png)
+![](/images/operate/节点概览.png)
 
 本例中，Master 节点数量 2，机型为 C1-large；Core 节点数量为 2，机型为 F1-large。
 
@@ -20,7 +20,7 @@
 
 点击添加节点后弹窗如下：
 
-![添加节点.png](/images/operate/添加节点.png)
+![](/images/operate/添加节点.png)
 
 输入节点初始密码，点击确定，等待节点创建。
 
@@ -135,17 +135,13 @@ c) 通过云主机（uhost）内网ssh进行登录。本例中可在云主机上
 
 ### 1、告警模板设置
 
-可于产品界面右侧弹框中设置集群告警模板。
-
-![](/images/uhadoop-33.png)
-
-或者在监控视图中修改相应集群和集群节点的告警模板。
+监控视图中修改相应集群和集群节点的告警模板。
 
 ![](/images/uhadoop-34.png)
 
 ![](/images/uhadoop-35.png)
 
-也可选择 产品与服务》监控，到监控页面进行对应产品的告警设置与告警模板修改
+也可到监控页面进行对应产品的告警设置与告警模板修改。
 
 ![](/images/uhadoop-36.png)
 
@@ -155,7 +151,7 @@ c) 通过云主机（uhost）内网ssh进行登录。本例中可在云主机上
 
 ![](/images/uhadoop-37.png)
 
-\===== 外网访问配置 =====
+===== 外网访问配置 =====
 
 绑定外网IP:
 
@@ -187,7 +183,7 @@ c) 通过云主机（uhost）内网ssh进行登录。本例中可在云主机上
 
 暂不支持查看其他类型的 Application 详情。
 
-![yarn\_application跟踪.png](/images/operate/yarn_application跟踪.png)
+![](/images/operate/yarn_application跟踪.png)
 
 Yarn Application 状态说明：
 

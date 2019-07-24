@@ -21,6 +21,7 @@ NameNode或者Active ResourceManager），绑定外网IP,开放对应应用防�
 
 可以通过 http://外网IP:60010/master-status 查看hbase的基本信息。
 
+
 ## 查看日志
 
 ### 1.查看节点上的日志
@@ -53,13 +54,13 @@ yarn页面查看提交到yarn上的任务日志详情。由于任务日志界面
 
 #### b.配置Nginx反向代理
 
-\- 服务端配置
+- 服务端配置
 
-1\. 安装Nginx
+1. 安装Nginx
 
     yum install nginx -y
 
-2\. 修改配置
+2. 修改配置
 
 新建/etc/nginx/conf.d/proxy.conf 文件中添加如下配置
 
@@ -95,7 +96,7 @@ service dnsmasq restart
 
 > 集群节点发生变化时，需要重新启动这个服务。
 
-\- 访问端配置
+- 访问端配置
 
 1.在访问的网页端配置代理
 
@@ -123,7 +124,7 @@ yarn任务的日志在任务运行结束之后会上传到hdfs上，当日志文
 
 ## 配置NFS挂载hdfs到本地
 
-\- 1.修改配置
+- 1.修改配置
 
 修改master节点下下面两个配置。
 
@@ -166,7 +167,7 @@ core-site.xml
     </property>
 ```
 
-\- 2.启动nfs， 在1中配置的允许启动nfs的主机上执行下面操作
+- 2.启动nfs， 在1中配置的允许启动nfs的主机上执行下面操作
 
 ``` 
     ${HADOOP_HOME}/sbin/hadoop-daemon.sh start portmap
@@ -178,7 +179,7 @@ core-site.xml
     / *
 ```
 
-\- 3.挂载
+- 3.挂载
 
 在nfs.exports.allowed.hosts允许的主机上执行
 

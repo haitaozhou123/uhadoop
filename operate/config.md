@@ -4,12 +4,12 @@
 
 ## Hadoop配置队列
 
-\- 用户可于 控制台-服务管理
+- 用户可于 控制台-服务管理
 进行队列配置，具体可参考[基本操作](https://docs.ucloud.cn/analysis/uhadoop/operate/base)。
 
 由于Fair Scheduler比Capacity Scheduler 支持的功能丰富，这里只介绍前者。
 
-\- 修改/home/hadoop/conf/yarn-site.xml
+- 修改/home/hadoop/conf/yarn-site.xml
 
 增加配置：
 
@@ -26,7 +26,7 @@
     </property>
 ```
 
-\- 配置队列配额
+- 配置队列配额
 
 cat fair-scheduler.xml
 
@@ -46,7 +46,7 @@ cat fair-scheduler.xml
     </allocations>
 ```
 
-\- 队列属性说明：
+- 队列属性说明：
 
     1.minResources ：最少资源保证量，设置格式为“X mb, Y vcores”，当一个队列的最少资源保证量未满足时，它将优先于其他同级队列获得资源，对于不同的调度策略（后面会详细介绍），最少资源保证量的含义不同，对于fair策略，则只考虑内存资源，即如果一个队列使用的内存资源超过了它的最少资源量，则认为它已得到了满足；对于drf策略，则考虑主资源使用的资源量，即如果一个队列的主资源量超过它的最少资源量，则认为它已得到了满足。
 
@@ -70,7 +70,7 @@ cat fair-scheduler.xml
 
     11.fairSharePreemptionThreshold： 配合上面参数使用的。
 
-\- 也可通过以下参数设置上面部分属性的默认值
+- 也可通过以下参数设置上面部分属性的默认值
 
 ``` xml
     defaultFairSharePreemptionTimeout
@@ -83,11 +83,11 @@ cat fair-scheduler.xml
     queuePlacementPolicy
 ```
 
-\- 用户属性：
+- 用户属性：
 
 maxRunningApps: 目前只能限制用户提交任务数量
 
-\- 应用队列配置
+- 应用队列配置
 
 修改fair-scheduler.xml文件，后推送到master节点上。然后在master1上以hadoop用户执行
 

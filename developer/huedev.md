@@ -5,13 +5,13 @@
 Hue是面向 Hadoop 的开源用户界面，可以让您更轻松地运行和开发 Hive 查询、管理 HDFS 中的文件、运行和开发 Pig
 脚本以及管理表。服务默认已经启动，用户只需要配置外网IP，在防火墙中配置开放端口就可以了。如果没有安装hue，可以在集群的"服务管理"页面开启Hue。
 
-访问地址: <http:%%//%%外网ip:8888>
+访问地址: <http://外网ip:8888>
 
 默认用户名/密码：hadoop/hadoop或者hue/hue， 用户登陆后可以自行更改。
 
 如果需要为Hue配置ldap或者sentry服务，请安装以下步骤安装：
 
-## 1\. 为Hue配置ldap
+## 1. 为Hue配置ldap
 
 下载[安装包](http://uhadoop-new.ufile.ucloud.com.cn/hue/openldap-2.4.44.tar.gz)，并拷贝到集群的master1节点上，并以root用户执行以下命令：
 
@@ -26,7 +26,7 @@ sh /home/hadoop/.versions/openldap-2.4.44/dependentpackages/install-openldap.sh
 service ldap start|stop|restart
 ```
 
-## 2\. 为Hue配置Sentry
+## 2. 为Hue配置Sentry
 
 下载[安装包](http://uhadoop-new.ufile.ucloud.com.cn/hue/sentry-1.7.0.tar.gz)，分发到集群所有安装hive服务的节点上，以root用户执行以下命令：
 
@@ -45,7 +45,7 @@ service sentry start|stop|restart
 
 ![hadoop-hue-find-hive.png](/images/developer/hadoop-hue-find-hive.png)
 
-## 3\. 配置工作流
+## 3. 配置工作流
 
 启用Hue的工作流功能，需要在集群上安装。可以在集群的"服务管理"页面启用Oozie。
 
@@ -97,21 +97,17 @@ uhadoop上使用的是hive-server2，所以这里选择hive-server2标签拖动�
 选择sqoop1这个标签拖动到action中。然后，添加需要执行的Sqoop命令。
 
 > 注意：
-
-\>
-
+>
 > 1.密码不能加额外的引号，hue会把-p 参数后面的所有内容都解释为密码；
-
-\>
-
+>
 > 2.Sqoop 要把任务分发到所有的集群节点，要保证集群所有节点对目标数据库的读写权限。
 
 最后，保存工作流。
 
 ![](/images/developer/3.4-sqoop.png)
 
-## 4\. Hue页面权限控制
+## 4. Hue页面权限控制
 
-\- 点击【管理用户】-\>【组】-\> 选择要修改的组名称，设置相应权限并保存
+- 点击【管理用户】-\>【组】-\> 选择要修改的组名称，设置相应权限并保存
 
 ![800](/images/developer/hadoop-hue-permissions.jpg)
