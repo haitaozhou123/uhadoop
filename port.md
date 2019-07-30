@@ -19,6 +19,9 @@
 | yarn.resourcemanager.resource-tracker.address.rm2 | master2:23125  |
 | yarn.nodemanager.localizer.address                | 0.0.0.0:23344  |
 | NM Webapp address                                 | 0.0.0.0:23999  |
+| zeppelin.server.port                              | master1:29090. |
+|presto coordinator http-server.http.port           | master1:28080  |
+| Presto worker http-server.http.por( core,task节点）| 28080          |
 | mapreduce.shuffle.port                            | 23080          |
 | mapreduce.jobhistory.address                      | 10020          |
 | dfs.datanode.address                              | 50010          |
@@ -46,3 +49,4 @@
 | Hive metastore                                    | 9083           |
 | Zookeeper ClientPort                              | 2181           |
 | Zookeeper Peer                                    | 2888、3888      |
+| 
