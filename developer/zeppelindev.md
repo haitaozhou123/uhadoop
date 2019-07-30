@@ -110,27 +110,34 @@ hbase解释器为Zeppelin自带的解释器，不需要再进行解释器的配�
 
 paragraph1:
 
+```
 %hbase
 
 create 'test_hbase', 'cf'
+```
 
 paragraph2:
 
+```
 %hbase
 
 list
+```
 
 paragraph3:
 
+```
 %hbase
 
 put 'test_hbase', 'row1', 'cf:a', 'value1'
+```
 
 paragraph4:
 
+```
 %hbase
 scan 'test_hbase'
-
+```
 
 执行结果如下：
 
@@ -166,13 +173,15 @@ spark解释器配置的默认部署类型是local mode, uhadoop中spark 是on ya
 
 wget http://mirrors.ucloud.cn/ucloud/udata/bank.csv
 
-hadoop hdfs put bank.csv  /
+hadoop fs -put bank.csv  /
 
 ```
 
 创建名为/test/spark的notebook，并在其中创建如下几个paragraph：
 
 paragraph1:
+
+```
 
 %spark
 import org.apache.commons.io.IOUtils
@@ -193,20 +202,25 @@ s(5).replaceAll("\"", "").toInt
 bank.registerTempTable("bank")
 bank.show(10)
 
+```
+
 paragraph2:
 
+```
 %sql
 select age, count(1) value
 from bank
 where age < 30
 group by age
 order by age
+```
 
 paragraph3:
 
+```
 %sql
 show tables
-
+```
 
 执行预期结果如下图：
 
