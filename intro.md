@@ -11,13 +11,13 @@ Hive，Apache Pig，HBase等）来分析和处理自己的数据。
 
 1.1 HDFS
 
-HDFS默认采用HA方式部署，2个Namenode分别部署于master1与master2，Datanode则分配在所有Core节点上，Task不部署Datanode
+HDFS默认采用HA方式部署，2个Namenode分别部署于master1与master2，Datanode则分配在所有Core节点上，Task不部署Datanode。
 
 ![](/images/developer/hdfs.jpg)
 
 1.2 Yarn
 
-Yarn同样默认采用HA方式部署，2个ResourceManager分别部署于master1与master2，Nodemanager则分配在所有Core、Task节点上
+Yarn同样默认采用HA方式部署，2个ResourceManager分别部署于master1与master2，Nodemanager则分配在所有Core、Task节点上。
 
 ![](/images/developer/yarn.jpg)
 
@@ -26,20 +26,20 @@ Yarn同样默认采用HA方式部署，2个ResourceManager分别部署于master1
 Hive目前只支持on
 yarn模式，2个Hive-MetaStore分别部署于master1与master2，并连接本地的mysql，避免了单个master节点宕机引起的Hive服务故障
 
-可以通过HiveCli或者Beeline连接Hive服务
+可以通过HiveCli或者Beeline连接Hive服务。
 
 ![](/images/developer/hive.jpg)
 
 1.4 HBase
 
-HBase默认采用HA方式部署，2个HMaster分别部署于master1与master2，HRegionServer则分配在所有Core节点上
+HBase默认采用HA方式部署，2个HMaster分别部署于master1与master2，HRegionServer则分配在所有Core节点上。
 
 ![](/images/developer/hbase.jpg)
 
 1.5 Spark
 
 Spark采用On
-Yarn模式，具体可参考[Spark开发指南](https://docs.ucloud.cn/analysis/uhadoop/developer/sparkdev)
+Yarn模式，具体可参考[Spark开发指南](https://docs.ucloud.cn/analysis/uhadoop/developer/sparkdev)。
 
 ## 2、产品特色与优点
 
